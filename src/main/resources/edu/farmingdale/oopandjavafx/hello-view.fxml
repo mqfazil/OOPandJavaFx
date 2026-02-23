@@ -1,8 +1,27 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.BorderPane?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="edu.farmingdale.oopandjavafx.HelloController">
+
+    <top>
+        <MenuBar>
+            <menus>
+                <Menu text="File">
+                    <items>
+                        <MenuItem text="New" onAction="#handleNew"/>
+                        <SeparatorMenuItem/>
+                        <MenuItem text="Exit" onAction="#handleExit"/>
+                    </items>
+                </Menu>
+
+                <Menu text="Edit">
+                    <items>
+                        <MenuItem text="Delete" onAction="#handleDelete"/>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </top>
 
 </BorderPane>
