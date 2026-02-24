@@ -12,10 +12,10 @@
     <top>
         <MenuBar>
             <Menu text="File">
-                <MenuItem text="Exit"/>
+                <MenuItem text="Exit" onAction="#handleExit"/>
             </Menu>
             <Menu text="Edit">
-                <MenuItem text="Clear"/>
+                <MenuItem text="Clear" onAction="#handleClear"/>
             </Menu>
             <Menu text="Theme">
                 <MenuItem text="Light"/>

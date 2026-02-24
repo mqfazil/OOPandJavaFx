@@ -1,10 +1,12 @@
 package edu.farmingdale.oopandjavafx;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 
 public class HelloController {
     // Table
@@ -39,6 +41,9 @@ public class HelloController {
     private ObservableList<Person> people = FXCollections.observableArrayList();
     private int currentId = 1;
 
+    @FXML
+    private ImageView profileImage;
+
     // Initialize
     @FXML
     public void initialize() {
@@ -52,14 +57,20 @@ public class HelloController {
 
         // Load selected row into text fields
         tableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-                    if (newSelection != null) {
-                        firstNameField.setText(newSelection.getFirstName());
-                        lastNameField.setText(newSelection.getLastName());
-                        departmentField.setText(newSelection.getDepartment());
-                        majorField.setText(newSelection.getMajor());
-                        emailField.setText(newSelection.getEmail());
-                        imageUrlField.setText(newSelection.getImageUrl());
-                    }});
+            if (newSelection != null) {
+                firstNameField.setText(newSelection.getFirstName());
+                lastNameField.setText(newSelection.getLastName());
+                departmentField.setText(newSelection.getDepartment());
+                majorField.setText(newSelection.getMajor());
+                emailField.setText(newSelection.getEmail());
+                imageUrlField.setText(newSelection.getImageUrl());
+            }});
+    }
+
+    // Exit
+    @FXML
+    private void handleExit() {
+        Platform.exit();
     }
 
     // Add
