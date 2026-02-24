@@ -55,6 +55,8 @@ public class HelloController {
         majorColumn.setCellValueFactory(new PropertyValueFactory<>("major"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         tableView.setItems(people);
+        Image defaultImage = new Image(getClass().getResourceAsStream("default_pfp.jpg"));
+        profileImage.setImage(defaultImage);
 
         // Load selected row into text fields
         tableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
@@ -129,6 +131,6 @@ public class HelloController {
         majorField.clear();
         emailField.clear();
         imageUrlField.clear();
-        profileImage.setImage(null); // reset image on clear
+        profileImage.setImage(new Image(getClass().getResourceAsStream("default_pfp.png")));
     }
 }
