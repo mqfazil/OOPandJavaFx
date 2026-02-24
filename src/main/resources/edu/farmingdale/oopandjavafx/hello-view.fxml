@@ -1,36 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="edu.farmingdale.oopandjavafx.HelloController">
 
+    <!-- TOP MENU -->
     <top>
         <MenuBar>
-            <menus>
-                <Menu text="File">
-                    <items>
-                        <MenuItem text="New" onAction="#handleNew"/>
-                        <SeparatorMenuItem/>
-                        <MenuItem text="Exit" onAction="#handleExit"/>
-                    </items>
-                </Menu>
-
-                <Menu text="Edit">
-                    <items>
-                        <MenuItem text="Delete" onAction="#handleDelete"/>
-                    </items>
-                </Menu>
-            </menus>
+            <Menu text="File">
+                <MenuItem text="Exit"/>
+            </Menu>
+            <Menu text="Edit">
+                <MenuItem text="Clear"/>
+            </Menu>
+            <Menu text="Theme">
+                <MenuItem text="Light"/>
+                <MenuItem text="Dark"/>
+            </Menu>
+            <Menu text="Help">
+                <MenuItem text="About"/>
+            </Menu>
         </MenuBar>
     </top>
+
+    <!-- LEFT IMAGE PANEL -->
+    <left>
+        <VBox alignment="TOP_CENTER" spacing="10" styleClass="left-panel">
+            <padding>
+                <Insets top="20" bottom="20" left="20" right="20"/>
+            </padding>
+
+            <ImageView fx:id="profileImage"
+                       fitWidth="120"
+                       fitHeight="120"
+                       preserveRatio="true"/>
+        </VBox>
+    </left>
+
+    <!-- CENTER TABLE -->
     <center>
         <TableView fx:id="tableView">
             <columns>
-                <TableColumn fx:id="firstNameCol" text="First Name"/>
-                <TableColumn fx:id="lastNameCol" text="Last Name"/>
-                <TableColumn fx:id="ageCol" text="Age"/>
+                <TableColumn fx:id="idColumn" text="ID" prefWidth="50"/>
+                <TableColumn fx:id="firstNameColumn" text="First Name" prefWidth="120"/>
+                <TableColumn fx:id="lastNameColumn" text="Last Name" prefWidth="120"/>
+                <TableColumn fx:id="departmentColumn" text="Department" prefWidth="120"/>
+                <TableColumn fx:id="majorColumn" text="Major" prefWidth="120"/>
+                <TableColumn fx:id="emailColumn" text="Email" prefWidth="180"/>
             </columns>
         </TableView>
     </center>
+
+    <!-- RIGHT FORM PANEL -->
+    <right>
+        <VBox spacing="15" styleClass="right-panel">
+            <padding>
+                <Insets top="20" bottom="20" left="20" right="20"/>
+            </padding>
+
+            <TextField fx:id="firstNameField" promptText="First Name"/>
+            <TextField fx:id="lastNameField" promptText="Last Name"/>
+            <TextField fx:id="departmentField" promptText="Department"/>
+            <TextField fx:id="majorField" promptText="Major"/>
+            <TextField fx:id="emailField" promptText="Email"/>
+            <TextField fx:id="imageUrlField" promptText="Image URL"/>
+
+            <Button text="Clear" onAction="#handleClear"/>
+            <Button text="Add" onAction="#handleAdd"/>
+            <Button text="Delete" onAction="#handleDelete"/>
+            <Button text="Edit" onAction="#handleEdit"/>
+        </VBox>
+    </right>
 
 </BorderPane>

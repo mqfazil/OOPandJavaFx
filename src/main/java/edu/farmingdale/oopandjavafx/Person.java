@@ -1,20 +1,60 @@
 package edu.farmingdale.oopandjavafx;
 
-import javafx.beans.property.*;
-
 public class Person {
+    private int id;
+    private String firstName;
+    private String lastName;
+    private String department;
+    private String major;
+    private String email;
+    private String imageUrl;
 
-    private final StringProperty firstName;
-    private final StringProperty lastName;
-    private final IntegerProperty age;
-
-    public Person(String firstName, String lastName, int age) {
-        this.firstName = new SimpleStringProperty(firstName);
-        this.lastName = new SimpleStringProperty(lastName);
-        this.age = new SimpleIntegerProperty(age);
+    public Person(int id, String firstName, String lastName, String department, String major, String email, String imageUrl) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.department = department;
+        this.major = major;
+        this.email = email;
+        this.imageUrl = imageUrl;
     }
 
-    public StringProperty firstNameProperty() { return firstName; }
-    public StringProperty lastNameProperty() { return lastName; }
-    public IntegerProperty ageProperty() { return age; }
+    public int getId() { return id; }
+    public String getFirstName() {
+        return firstName;
+    }
+    public String getLastName() {
+        return lastName;
+    }
+    public String getDepartment() {
+        return department;
+    }
+    public String getMajor() {
+        return major;
+    }
+    public String getEmail() {
+        return email;
+    }
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+    public void setMajor(String major) {
+        this.major = major;
+    }
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 }

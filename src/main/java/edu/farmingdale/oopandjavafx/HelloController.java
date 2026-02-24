@@ -1,46 +1,114 @@
 package edu.farmingdale.oopandjavafx;
 
-import javafx.fxml.FXML;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class HelloController {
-    @FXML private TableView<Person> tableView;
-    @FXML private TableColumn<Person, String> firstNameCol;
-    @FXML private TableColumn<Person, String> lastNameCol;
-    @FXML private TableColumn<Person, Integer> ageCol;
-    private final ObservableList<Person> data =
-            FXCollections.observableArrayList(new Person("John", "Doe", 30),new Person("Jane", "Smith", 25));
+    // Table
+    @FXML
+    private TableView<Person> tableView;
+    @FXML
+    private TableColumn<Person, Integer> idColumn;
+    @FXML
+    private TableColumn<Person, String> firstNameColumn;
+    @FXML
+    private TableColumn<Person, String> lastNameColumn;
+    @FXML
+    private TableColumn<Person, String> departmentColumn;
+    @FXML
+    private TableColumn<Person, String> majorColumn;
+    @FXML
+    private TableColumn<Person, String> emailColumn;
 
+    // Text Field
+    @FXML
+    private TextField firstNameField;
+    @FXML
+    private TextField lastNameField;
+    @FXML
+    private TextField departmentField;
+    @FXML
+    private TextField majorField;
+    @FXML
+    private TextField emailField;
+    @FXML
+    private TextField imageUrlField;
+    private ObservableList<Person> people = FXCollections.observableArrayList();
+    private int currentId = 1;
+
+    // Initialize
     @FXML
     public void initialize() {
-        firstNameCol.setCellValueFactory(cell ->
-                cell.getValue().firstNameProperty());
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        departmentColumn.setCellValueFactory(new PropertyValueFactory<>("department"));
+        majorColumn.setCellValueFactory(new PropertyValueFactory<>("major"));
+        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+        tableView.setItems(people);
 
-        lastNameCol.setCellValueFactory(cell ->
-                cell.getValue().lastNameProperty());
-
-        ageCol.setCellValueFactory(cell ->
-                cell.getValue().ageProperty().asObject());
-        tableView.setItems(data);
+        // Load selected row into text fields
+        tableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+                    if (newSelection != null) {
+                        firstNameField.setText(newSelection.getFirstName());
+                        lastNameField.setText(newSelection.getLastName());
+                        departmentField.setText(newSelection.getDepartment());
+                        majorField.setText(newSelection.getMajor());
+                        emailField.setText(newSelection.getEmail());
+                        imageUrlField.setText(newSelection.getImageUrl());
+                    }});
     }
 
+    // Add
     @FXML
-    private void handleNew() {
-        data.add(new Person("New", "User", 20));
+    private void handleAdd() {
+        Person person = new Person(currentId++, firstNameField.getText(), lastNameField.getText(), departmentField.getText(), majorField.getText(),
+                emailField.getText(), imageUrlField.getText());
+        people.add(person);
+        clearFields();
     }
 
+    // Delete
     @FXML
     private void handleDelete() {
         Person selected = tableView.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            data.remove(selected);
+            people.remove(selected);
         }
     }
 
+    // Clear
     @FXML
-    private void handleExit() {
-        System.exit(0);
+    private void handleClear() {
+        clearFields();
+        tableView.getSelectionModel().clearSelection();
+    }
+
+    // Edit
+    @FXML
+    private void handleEdit() {
+        Person selected = tableView.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            selected.setFirstName(firstNameField.getText());
+            selected.setLastName(lastNameField.getText());
+            selected.setDepartment(departmentField.getText());
+            selected.setMajor(majorField.getText());
+            selected.setEmail(emailField.getText());
+            selected.setImageUrl(imageUrlField.getText());
+            tableView.refresh();
+        }
+    }
+
+    // Helper
+    private void clearFields() {
+        firstNameField.clear();
+        lastNameField.clear();
+        departmentField.clear();
+        majorField.clear();
+        emailField.clear();
+        imageUrlField.clear();
     }
 }
