@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
 
 public class HelloController {
     // Table
@@ -64,6 +65,13 @@ public class HelloController {
                 majorField.setText(newSelection.getMajor());
                 emailField.setText(newSelection.getEmail());
                 imageUrlField.setText(newSelection.getImageUrl());
+                // Update profile image
+                try {
+                    Image image = new Image(newSelection.getImageUrl(), true);
+                    profileImage.setImage(image);
+                } catch (Exception e) {
+                    profileImage.setImage(null);
+                }
             }});
     }
 
@@ -121,5 +129,6 @@ public class HelloController {
         majorField.clear();
         emailField.clear();
         imageUrlField.clear();
+        profileImage.setImage(null); // reset image on clear
     }
 }
