@@ -23,5 +23,14 @@
             </menus>
         </MenuBar>
     </top>
+    <center>
+        <TableView fx:id="tableView">
+            <columns>
+                <TableColumn fx:id="firstNameCol" text="First Name"/>
+                <TableColumn fx:id="lastNameCol" text="Last Name"/>
+                <TableColumn fx:id="ageCol" text="Age"/>
+            </columns>
+        </TableView>
+    </center>
 
 </BorderPane>
