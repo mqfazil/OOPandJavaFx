@@ -28,11 +28,19 @@ public class HelloController {
 
     @FXML
     private void handleNew() {
+        data.add(new Person("New", "User", 20));
     }
+
     @FXML
     private void handleDelete() {
+        Person selected = tableView.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            data.remove(selected);
+        }
     }
+
     @FXML
     private void handleExit() {
+        System.exit(0);
     }
 }
