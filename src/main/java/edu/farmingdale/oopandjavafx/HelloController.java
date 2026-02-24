@@ -10,6 +10,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 
 public class HelloController {
+    @FXML
+    private ImageView profileImage;
+
+    private Image defaultImage;
+
     // Table
     @FXML
     private TableView<Person> tableView;
@@ -42,12 +47,11 @@ public class HelloController {
     private ObservableList<Person> people = FXCollections.observableArrayList();
     private int currentId = 1;
 
-    @FXML
-    private ImageView profileImage;
-
     // Initialize
     @FXML
     public void initialize() {
+        defaultImage = new Image(getClass().getResourceAsStream("default_pfp.jpg"));
+
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
@@ -55,7 +59,7 @@ public class HelloController {
         majorColumn.setCellValueFactory(new PropertyValueFactory<>("major"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         tableView.setItems(people);
-        Image defaultImage = new Image(getClass().getResourceAsStream("default_pfp.jpg"));
+
         profileImage.setImage(defaultImage);
 
         // Load selected row into text fields
@@ -67,14 +71,27 @@ public class HelloController {
                 majorField.setText(newSelection.getMajor());
                 emailField.setText(newSelection.getEmail());
                 imageUrlField.setText(newSelection.getImageUrl());
+
                 // Update profile image
-                try {
-                    Image image = new Image(newSelection.getImageUrl(), true);
-                    profileImage.setImage(image);
-                } catch (Exception e) {
-                    profileImage.setImage(null);
+                String url = newSelection.getImageUrl();
+                if (url == null || url.isBlank()) {
+                    profileImage.setImage(defaultImage);
+                } else {
+                    try {
+                        Image image = new Image(url, true);
+                        image.errorProperty().addListener((obs2, wasError, isError) -> {
+                            if (isError) profileImage.setImage(defaultImage);
+                        });
+                        profileImage.setImage(image);
+                    } catch (Exception e) {
+                        profileImage.setImage(defaultImage);
+                    }
                 }
-            }});
+            } else {
+                profileImage.setImage(defaultImage);
+                clearFields();
+            }
+        });
     }
 
     // Exit
@@ -131,6 +148,6 @@ public class HelloController {
         majorField.clear();
         emailField.clear();
         imageUrlField.clear();
-        profileImage.setImage(new Image(getClass().getResourceAsStream("default_pfp.png")));
+        profileImage.setImage(defaultImage);
     }
 }
